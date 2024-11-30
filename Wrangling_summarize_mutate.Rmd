@@ -147,6 +147,8 @@ movies_ln128 <- movies %>%
 movies_ln128
 ```
 
+# Question 5
+
 ## Putting it together
 
 Now that we have a bunch of wrangling skills, let's put them together. 
@@ -157,10 +159,17 @@ Now that we have a bunch of wrangling skills, let's put them together.
 
 To accomplish that last task, we need a specialty function, `n`. Here's how it works
 
+The previous query that used per_low to obtain the low movie ratings is the source of the poor rating. After that, we'll filter to look at per_low and votes higher than five, which will provide us with a list of all the films we believe to have low ratings and votes higher than five. We must now determine the total number of films with ratings higher than five that are deemed to have a poor rating.
+
 ```{r}
-movies %>%
-  summarize(n())
+movies_ln144<-movies_ln128 %>%
+  filter(per_low > 50 & votes > 5)%>%
+  select(per_low,votes,title) %>%
+  summarize(Bdmvs = n())
+movies_ln144
 ```
+
+With more than five votes, 4753 films have a significant percentage of bad ratings.
 
 - what is the average length of movies in the dataset, in hours? 
 - can you find a second way to compute the average length, by flipping the order of commands (i.e., `summarize` first and then `mutate`)?
